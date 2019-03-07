@@ -6,6 +6,13 @@ const Page = db.define('page', {
         type: Sequelize.STRING,
         allowNull: false
     }, 
+    User.beforeValidate(pageInstance, obj) => {
+        function generateSlug(title) {
+            return title.replace(/\s+/g, '_').replace(/\W/g, '')
+        }
+        Page.slug = generateSlug(Page.title)
+    },
+
     slug: {
         type: Sequelize.STRING,
         allowNull: false,
